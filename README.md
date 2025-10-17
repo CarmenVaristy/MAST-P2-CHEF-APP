@@ -1,5 +1,7 @@
 Christoffel Shop Menu App
+
 Project Overview:
+
 This is a React Native mobile application that allows guests to browse and filter menu items, add items to a cart, and complete checkout with optional promo codes and payment selection.
 ________________________________________
 Features
