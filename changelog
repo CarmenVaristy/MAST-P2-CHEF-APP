@@ -1,0 +1,28 @@
+Changelog Entry
+
+Date: 24 October 2025
+Version: 1.1
+Module: Menu Page – Christoffel Shop App
+Change Type: Feature Addition
+
+Description of Change:
+
+Added functionality to calculate and display the average price of meals in each category (Starters, Mains, Desserts) on the Menu Page.
+
+Implemented a getAveragePrice(category) function that computes the mean price from the proposed menu items for the selected category.
+
+Updated the Menu Page UI to display the calculated average above each category’s meal list.
+
+Ensured compatibility with dynamic user-added meals from the Filter Page.
+
+Styling added for the average price display for clarity and consistency with the existing design.
+
+File(s) Updated:
+
+App.js
+
+Impact:
+
+Users can now see the average price per category, enhancing transparency and improving user experience when browsing menu items.
+
+No impact on existing cart, checkout, or filter functionalities.
