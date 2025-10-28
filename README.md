@@ -110,4 +110,27 @@ Screen shots :
 <img width="975" height="476" alt="image" src="https://github.com/user-attachments/assets/c1b4b253-9ad5-47d1-860f-47c045adf187" />
 
 
+REFERENCES:
+Sert, M. (2017) 'A shopping cart with React Native', Medium. Available at: https://medium.com/@muratsert1453/a-shopping-cart-with-react-native-33578c4bd1d8
+ (Accessed: 28 October 2025).
 
+Kakar, S. (2022) 'Creating a React Native Ecommerce App with Medusa Part 2: Adding Cart and Checkout', Medusa. Available at: https://medusajs.com/blog/react-native-ecommerce-app-part-2/
+ (Accessed: 28 October 2025).
+
+'Shopping Cart app using React', GeeksforGeeks. Available at: https://www.geeksforgeeks.org/reactjs/shopping-cart-app-using-react/
+ (Accessed: 28 October 2025).
+
+'How to add a Menu in react-native using Material Design?', GeeksforGeeks. Available at: https://www.geeksforgeeks.org/react-native/how-to-add-a-menu-in-react-native-using-material-design/
+ (Accessed: 28 October 2025).
+
+'React Native side menu step by step guide with examples', Tricentis. Available at: https://www.tricentis.com/learn/react-native-side-menu-guide
+ (Accessed: 28 October 2025).
+
+'Building a React Native Filter - Part 1', Dev.to. Available at: https://dev.to/muvinai/building-a-react-native-filter-part-1-21j7
+ (Accessed: 28 October 2025).
+
+'Filter Items in the React Native List View', Egghead.io. Available at: https://egghead.io/lessons/react-filter-items-in-the-react-native-list-view
+ (Accessed: 28 October 2025).
+
+'Creating a navigation menu with React Native', Arana Corp. Available at: https://www.aranacorp.com/en/creating-a-navigation-menu-with-react-native/
+ (Accessed: 28 October 2025).
