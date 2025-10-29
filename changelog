@@ -2,8 +2,8 @@
 
 # 🧾 **Changelog Entry**
 
-**Date:** 24 October 2025
-**Version:** 1.1
+**Date:** 29 October 2025
+**Version:** 1.2
 **Module:** Full App Update – Christoffel Shop App
 **Change Type:** Feature Additions, Functional Enhancements & UI Refinements
 
@@ -16,6 +16,8 @@
 * Added functionality to **calculate and display the average price** per category (Starters, Mains, Desserts).
 * Implemented the new `getAveragePrice(category)` function for dynamic computation.
 * Added **category-based item counters** to display total items in each category.
+* Added **category filter buttons** (`All`, `Starters`, `Mains`, `Desserts`) for quick navigation.
+* Linked filter selections dynamically to display only meals from the chosen category.
 * Improved **layout spacing and visual hierarchy** to prevent overlapping and squashed elements.
 * Refined **button styling** (increase/decrease quantity) to a clean **black-and-white theme** for professional contrast.
 * Added **consistent padding, alignment, and margins** for visual clarity.
@@ -27,7 +29,7 @@
 
 #### 🍽️ **Filter Page Improvements**
 
-* Implemented **category filtering** for menu items (Starters, Mains, Desserts).
+* Implemented **dynamic category filtering** for menu items.
 * Added dropdown/tabs-style selection for choosing the desired meal category.
 * Linked the filter selections to the menu dynamically — items now display according to user preference.
 * Improved user experience by allowing **real-time filtering and sorting**.
@@ -52,7 +54,8 @@
 
   * Ensured name is filled in before proceeding.
   * Added proper **email format validation** (must include “@”).
-  * Validated **phone number length** (must be 10 digits).
+  * Validated **phone number length** (must be 7–15 digits).
+  * Checked for empty delivery address.
 * Implemented a **success message** confirmation once the order is placed successfully.
 * Enhanced **input box spacing and alignment** for a polished look.
 * Added **user feedback messages** for empty fields or invalid inputs.
@@ -112,6 +115,4 @@ Kakar, S. (2022) *Creating a React Native Ecommerce App with Medusa Part 2: Addi
 *Filter Items in the React Native List View*, Egghead.io. Available at: [https://egghead.io/lessons/react-filter-items-in-the-react-native-list-view](https://egghead.io/lessons/react-filter-items-in-the-react-native-list-view) (Accessed: 28 October 2025).
 
 *Creating a navigation menu with React Native*, Arana Corp. Available at: [https://www.aranacorp.com/en/creating-a-navigation-menu-with-react-native/](https://www.aranacorp.com/en/creating-a-navigation-menu-with-react-native/) (Accessed: 28 October 2025).
-
----
 
