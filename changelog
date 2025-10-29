@@ -1,5 +1,4 @@
 
-
 # 🧾 **Changelog Entry**
 
 **Date:** 29 October 2025
@@ -41,6 +40,7 @@
 
 * Integrated **increment/decrement functionality** for item quantities directly in the cart.
 * Added **real-time subtotal and total price calculation** per item and cart-wide.
+* **Added descriptive text for each cart item** (`item.desc`) to provide more detailed information about the product.
 * Fixed overlapping UI issues where the header and list collided with bottom buttons.
 * Adjusted **vertical and horizontal spacing** for better readability and button accessibility.
 * Improved **professional styling** with modern layout alignment.
@@ -56,9 +56,13 @@
   * Added proper **email format validation** (must include “@”).
   * Validated **phone number length** (must be 7–15 digits).
   * Checked for empty delivery address.
+
 * Implemented a **success message** confirmation once the order is placed successfully.
+
 * Enhanced **input box spacing and alignment** for a polished look.
+
 * Added **user feedback messages** for empty fields or invalid inputs.
+
 * Ensured full compatibility with the cart and filtering pages for a seamless checkout process.
 
 ---
@@ -91,9 +95,13 @@
   * View **average category prices** and total item counts.
   * Filter meals easily by category (Starters, Mains, Desserts).
   * Adjust quantities directly from the cart.
+  * **See detailed descriptions** of each cart item.
   * Complete checkout with **validated input** and a clear **success confirmation**.
+
 * Overall app experience is more **professional, structured, and intuitive**.
+
 * Code readability and maintainability improved through **comment-based explanations** and better structure.
+
 * **No regressions** found in existing navigation or functionality.
 
 ---
@@ -115,4 +123,6 @@ Kakar, S. (2022) *Creating a React Native Ecommerce App with Medusa Part 2: Addi
 *Filter Items in the React Native List View*, Egghead.io. Available at: [https://egghead.io/lessons/react-filter-items-in-the-react-native-list-view](https://egghead.io/lessons/react-filter-items-in-the-react-native-list-view) (Accessed: 28 October 2025).
 
 *Creating a navigation menu with React Native*, Arana Corp. Available at: [https://www.aranacorp.com/en/creating-a-navigation-menu-with-react-native/](https://www.aranacorp.com/en/creating-a-navigation-menu-with-react-native/) (Accessed: 28 October 2025).
+
+---
 
