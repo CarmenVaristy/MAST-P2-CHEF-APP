@@ -1,0 +1,128 @@
+
+# 🧾 **Changelog Entry**
+
+**Date:** 29 October 2025
+**Version:** 1.2
+**Module:** Full App Update – Christoffel Shop App
+**Change Type:** Feature Additions, Functional Enhancements & UI Refinements
+
+---
+
+### 🧩 **Description of Change**
+
+#### 🥗 **Menu Page Enhancements**
+
+* Added functionality to **calculate and display the average price** per category (Starters, Mains, Desserts).
+* Implemented the new `getAveragePrice(category)` function for dynamic computation.
+* Added **category-based item counters** to display total items in each category.
+* Added **category filter buttons** (`All`, `Starters`, `Mains`, `Desserts`) for quick navigation.
+* Linked filter selections dynamically to display only meals from the chosen category.
+* Improved **layout spacing and visual hierarchy** to prevent overlapping and squashed elements.
+* Refined **button styling** (increase/decrease quantity) to a clean **black-and-white theme** for professional contrast.
+* Added **consistent padding, alignment, and margins** for visual clarity.
+* Integrated **comment documentation** throughout code for maintainability and assessment marking.
+* Optimized ScrollView layout for better content spacing and readability.
+* Enhanced user interface structure to support **columned category sections** for easier navigation.
+
+---
+
+#### 🍽️ **Filter Page Improvements**
+
+* Implemented **dynamic category filtering** for menu items.
+* Added dropdown/tabs-style selection for choosing the desired meal category.
+* Linked the filter selections to the menu dynamically — items now display according to user preference.
+* Improved user experience by allowing **real-time filtering and sorting**.
+* Added comments explaining data flow between menu, filter, and cart states.
+
+---
+
+#### 🛒 **Cart Page Enhancements**
+
+* Integrated **increment/decrement functionality** for item quantities directly in the cart.
+* Added **real-time subtotal and total price calculation** per item and cart-wide.
+* **Added descriptive text for each cart item** (`item.desc`) to provide more detailed information about the product.
+* Fixed overlapping UI issues where the header and list collided with bottom buttons.
+* Adjusted **vertical and horizontal spacing** for better readability and button accessibility.
+* Improved **professional styling** with modern layout alignment.
+* Added **comments and function explanations** to assist in grading and code understanding.
+
+---
+
+#### 💳 **Checkout Page Improvements**
+
+* Added **form validation** for user details:
+
+  * Ensured name is filled in before proceeding.
+  * Added proper **email format validation** (must include “@”).
+  * Validated **phone number length** (must be 7–15 digits).
+  * Checked for empty delivery address.
+
+* Implemented a **success message** confirmation once the order is placed successfully.
+
+* Enhanced **input box spacing and alignment** for a polished look.
+
+* Added **user feedback messages** for empty fields or invalid inputs.
+
+* Ensured full compatibility with the cart and filtering pages for a seamless checkout process.
+
+---
+
+#### 🎨 **General UI/UX & Structural Updates**
+
+* Improved **spacing and layout structure** across all screens for a consistent app flow.
+* Standardized **typography, margins, and sectioning** to avoid horizontal stretching.
+* Added **responsive layout handling** using `Dimensions` and flex-based styling.
+* Ensured that background images remain visible and properly scaled without distortion.
+* Enhanced **professional presentation** across all pages with consistent styling elements.
+* Comprehensive **commenting added throughout** for clarity, functionality explanation, and documentation marks.
+
+---
+
+### 🧱 **File(s) Updated**
+
+* `App.js`
+* `MenuScreen.js`
+* `CartScreen.js`
+* `FilterScreen.js`
+* `CheckoutScreen.js`
+
+---
+
+### 💥 **Impact**
+
+* Users can now:
+
+  * View **average category prices** and total item counts.
+  * Filter meals easily by category (Starters, Mains, Desserts).
+  * Adjust quantities directly from the cart.
+  * **See detailed descriptions** of each cart item.
+  * Complete checkout with **validated input** and a clear **success confirmation**.
+
+* Overall app experience is more **professional, structured, and intuitive**.
+
+* Code readability and maintainability improved through **comment-based explanations** and better structure.
+
+* **No regressions** found in existing navigation or functionality.
+
+---
+
+### 📚 **References**
+
+Sert, M. (2017) *A shopping cart with React Native*, Medium. Available at: [https://medium.com/@muratsert1453/a-shopping-cart-with-react-native-33578c4bd1d8](https://medium.com/@muratsert1453/a-shopping-cart-with-react-native-33578c4bd1d8) (Accessed: 28 October 2025).
+
+Kakar, S. (2022) *Creating a React Native Ecommerce App with Medusa Part 2: Adding Cart and Checkout*, Medusa. Available at: [https://medusajs.com/blog/react-native-ecommerce-app-part-2/](https://medusajs.com/blog/react-native-ecommerce-app-part-2/) (Accessed: 28 October 2025).
+
+*Shopping Cart app using React*, GeeksforGeeks. Available at: [https://www.geeksforgeeks.org/reactjs/shopping-cart-app-using-react/](https://www.geeksforgeeks.org/reactjs/shopping-cart-app-using-react/) (Accessed: 28 October 2025).
+
+*How to add a Menu in react-native using Material Design?*, GeeksforGeeks. Available at: [https://www.geeksforgeeks.org/react-native/how-to-add-a-menu-in-react-native-using-material-design/](https://www.geeksforgeeks.org/react-native/how-to-add-a-menu-in-react-native-using-material-design/) (Accessed: 28 October 2025).
+
+*React Native side menu step by step guide with examples*, Tricentis. Available at: [https://www.tricentis.com/learn/react-native-side-menu-guide](https://www.tricentis.com/learn/react-native-side-menu-guide) (Accessed: 28 October 2025).
+
+*Building a React Native Filter - Part 1*, Dev.to. Available at: [https://dev.to/muvinai/building-a-react-native-filter-part-1-21j7](https://dev.to/muvinai/building-a-react-native-filter-part-1-21j7) (Accessed: 28 October 2025).
+
+*Filter Items in the React Native List View*, Egghead.io. Available at: [https://egghead.io/lessons/react-filter-items-in-the-react-native-list-view](https://egghead.io/lessons/react-filter-items-in-the-react-native-list-view) (Accessed: 28 October 2025).
+
+*Creating a navigation menu with React Native*, Arana Corp. Available at: [https://www.aranacorp.com/en/creating-a-navigation-menu-with-react-native/](https://www.aranacorp.com/en/creating-a-navigation-menu-with-react-native/) (Accessed: 28 October 2025).
+
+---
+
