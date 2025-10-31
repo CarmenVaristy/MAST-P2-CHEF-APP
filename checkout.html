@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background-image: url("./assets/check.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: brightness(0.7);
+    }
+
+    .checkout-container {
+      width: 90%;
+      max-width: 400px;
+      background-color: rgba(255, 255, 255, 0.96);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+      text-align: center;
+      overflow-y: auto;
+      max-height: 90vh;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #2f4f4f;
+      margin-bottom: 22px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background-color: #f8f8f8;
+      font-size: 16px;
+      color: #333;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      height: 80px;
+      resize: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 8px;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .place-order {
+      background-color: #2e8b57;
+      color: #fff;
+    }
+
+    .place-order:hover {
+      background-color: #256d46;
+    }
+
+    .back-btn {
+      background-color: #808080;
+      color: #fff;
+    }
+
+    .back-btn:hover {
+      background-color: #666;
+    }
+
+    .summary-box {
+      margin-top: 20px;
+      padding: 14px;
+      border-radius: 12px;
+      background-color: #e6ffe6;
+      text-align: left;
+      font-size: 16px;
+      color: #2f4f4f;
+    }
+
+    .summary-box strong {
+      display: block;
+      font-weight: 700;
+      margin-top: 5px;
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="checkout-container">
+    <h1>Checkout</h1>
+
+    <input type="text" id="name" placeholder="Full Name" />
+    <input type="email" id="email" placeholder="Email Address" />
+    <input type="tel" id="phone" placeholder="Phone Number" />
+    <textarea id="address" placeholder="Delivery Address"></textarea>
+    <input type="text" id="promo" placeholder="Promo Code (Optional)" />
+
+    <button class="place-order" onclick="placeOrder()">Place Order</button>
+    <button class="back-btn" onclick="goBack()">← Back to Cart</button>
+
+    <div id="summary" class="summary-box" style="display: none;"></div>
+  </div>
+
+  <script>
+    const PROMO_CODES = {
+      DISCOUNT10: 10,
+      DISCOUNT20: 20,
+    };
+
+    // Example mock cart
+    const cartItems = [
+      { name: "Cappuccino", price: 45 },
+      { name: "Chocolate Cake", price: 60 },
+    ];
+
+    function validateForm(name, email, phone, address) {
+      if (!name.trim()) return "Please enter your full name";
+      if (!email.trim() || !/\\S+@\\S+\\.\\S+/.test(email))
+        return "Please enter a valid email address";
+      if (!phone.trim() || !/^\\d{7,15}$/.test(phone))
+        return "Please enter a valid phone number";
+      if (!address.trim()) return "Please enter your delivery address";
+      if (cartItems.length === 0) return "Your cart is empty";
+      return null;
+    }
+
+    function calculateTotal(promoCode) {
+      let subtotal = cartItems.reduce((sum, item) => sum + item.price, 0);
+      let discount = 0;
+
+      const code = promoCode.toUpperCase();
+      if (code && PROMO_CODES[code]) {
+        discount = (subtotal * PROMO_CODES[code]) / 100;
+      }
+
+      const total = subtotal - discount;
+      return { subtotal, discount, total };
+    }
+
+    function placeOrder() {
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      const address = document.getElementById("address").value;
+      const promo = document.getElementById("promo").value;
+
+      const error = validateForm(name, email, phone, address);
+      if (error) {
+        alert(error);
+        return;
+      }
+
+      const { subtotal, discount, total } = calculateTotal(promo);
+
+      const summary = document.getElementById("summary");
+      summary.style.display = "block";
+      summary.innerHTML = `
+        Subtotal: R${subtotal.toFixed(2)}<br>
+        Discount: R${discount.toFixed(2)}<br>
+        <strong>Total: R${total.toFixed(2)}</strong>
+      `;
+
+      alert(
+        "✅ Thank you for your order!\\n\\n" +
+        "Subtotal: R" + subtotal.toFixed(2) + "\\n" +
+        "Discount: R" + discount.toFixed(2) + "\\n" +
+        "Total: R" + total.toFixed(2)
+      );
+    }
+
+    function goBack() {
+      window.location.href = "cart.html"; // Link back to cart page
+    }
+  </script>
+</body>
+</html>
