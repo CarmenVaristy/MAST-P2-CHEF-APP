@@ -95,19 +95,19 @@ This project is for educational purposes and personal use.
 ________________________________________
 Screen shots :
 
-<img width="975" height="479" alt="image" src="https://github.com/user-attachments/assets/1fd42721-b93b-49cb-842b-03ec2b108fff" />
+<img width="542" height="977" alt="image" src="https://github.com/user-attachments/assets/5cc7f8a6-5453-49d3-a5bc-390d8bf2d589" />
 
 
-<img width="975" height="483" alt="image" src="https://github.com/user-attachments/assets/fac9b1e0-599d-490f-91ca-e121c3bfb702" />
+<img width="538" height="966" alt="image" src="https://github.com/user-attachments/assets/684d09b2-f1fc-464d-bed5-d45a5d3c3f8f" />
 
 
-<img width="975" height="475" alt="image" src="https://github.com/user-attachments/assets/a389be95-e3f5-4d07-a973-bfe9648bcde4" />
+<img width="545" height="955" alt="image" src="https://github.com/user-attachments/assets/e20ada94-0c46-47e9-92c8-bec5d53e5daf" />
 
 
-<img width="975" height="478" alt="image" src="https://github.com/user-attachments/assets/f4c5c536-c188-46b3-b9f4-66b747bdd9ea" />
+<img width="537" height="970" alt="image" src="https://github.com/user-attachments/assets/45b6e58a-f165-4f6b-b5bc-ff65ed5e32fc" />
 
 
-<img width="975" height="476" alt="image" src="https://github.com/user-attachments/assets/c1b4b253-9ad5-47d1-860f-47c045adf187" />
+<img width="542" height="956" alt="image" src="https://github.com/user-attachments/assets/b76d30a8-cb68-4831-b11b-a6548a8bd40d" />
 
 
 REFERENCES:
