@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create / Filter Menu</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Times New Roman", serif;
+      background-image: url("./assets/FILTERMENU.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      background-color: rgba(255, 255, 255, 0.85);
+      margin-top: 40px;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .back-btn {
+      position: absolute;
+      top: -50px;
+      left: 0;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 16px;
+    }
+
+    .category-container {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+
+    .category-btn {
+      padding: 10px 20px;
+      border-radius: 25px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      background-color: #000;
+      color: #fff;
+    }
+
+    .category-btn.selected {
+      background-color: #fff;
+      color: #000;
+      border: 1px solid #000;
+    }
+
+    .input-box input {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+      border: none;
+      border-bottom: 1px solid #000;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .buttons-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .buttons-row button {
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .meal-list {
+      max-height: 200px;
+      overflow-y: auto;
+      margin-top: 10px;
+    }
+
+    .meal-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .meal-details p {
+      margin: 2px 0;
+    }
+
+    .meal-name {
+      font-weight: 700;
+      color: #000;
+    }
+
+    .remove-btn {
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    .no-meals {
+      text-align: center;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <h2>Create / Filter Menu</h2>
+
+    <div class="category-container">
+      <button class="category-btn selected" onclick="setCategory('Starters')">Starters</button>
+      <button class="category-btn" onclick="setCategory('Mains')">Mains</button>
+      <button class="category-btn" onclick="setCategory('Desserts')">Desserts</button>
+    </div>
+
+    <div class="input-box">
+      <input type="text" id="mealName" placeholder="Meal Name" />
+      <input type="text" id="mealDesc" placeholder="Description" />
+      <input type="number" id="mealPrice" placeholder="Price (R)" />
+
+      <div class="buttons-row">
+        <button onclick="addMeal()">+ Add</button>
+        <button onclick="viewMenu()">View Menu</button>
+      </div>
+    </div>
+
+    <div id="mealList" class="meal-list">
+      <p class="no-meals">No meals added yet</p>
+    </div>
+  </div>
+
+  <script>
+    // Load existing meals from localStorage if any
+    let mealsInput = JSON.parse(localStorage.getItem("proposedMenu")) || {
+      Starters: [],
+      Mains: [],
+      Desserts: []
+    };
+
+    let selectedCategory = "Starters";
+
+    function goHome() {
+      window.location.href = "index.html";
+    }
+
+    function setCategory(cat) {
+      selectedCategory = cat;
+      document.querySelectorAll(".category-btn").forEach(btn => btn.classList.remove("selected"));
+      event.target.classList.add("selected");
+      renderMeals();
+    }
+
+    function addMeal() {
+      const name = document.getElementById("mealName").value.trim();
+      const desc = document.getElementById("mealDesc").value.trim();
+      const price = document.getElementById("mealPrice").value.trim();
+
+      if (!name || !desc || !price) {
+        alert("Please fill all fields!");
+        return;
+      }
+
+      if (mealsInput[selectedCategory].length >= 2) {
+        alert(`Only 2 meals allowed in ${selectedCategory}`);
+        return;
+      }
+
+      const index = mealsInput[selectedCategory].length + 1;
+      const image = `${selectedCategory.toLowerCase().slice(0, -1)}${index}.png`;
+
+      mealsInput[selectedCategory].push({ name, desc, price, image });
+
+      // Save to localStorage
+      localStorage.setItem("proposedMenu", JSON.stringify(mealsInput));
+
+      renderMeals();
+
+      document.getElementById("mealName").value = "";
+      document.getElementById("mealDesc").value = "";
+      document.getElementById("mealPrice").value = "";
+    }
+
+    function removeMeal(index) {
+      mealsInput[selectedCategory].splice(index, 1);
+      localStorage.setItem("proposedMenu", JSON.stringify(mealsInput));
+      renderMeals();
+    }
+
+    function renderMeals() {
+      const list = document.getElementById("mealList");
+      const meals = mealsInput[selectedCategory];
+      list.innerHTML = "";
+
+      if (meals.length === 0) {
+        list.innerHTML = '<p class="no-meals">No meals added yet</p>';
+        return;
+      }
+
+      meals.forEach((meal, index) => {
+        const mealDiv = document.createElement("div");
+        mealDiv.className = "meal-card";
+        mealDiv.innerHTML = `
+          <div class="meal-details">
+            <p class="meal-name">${meal.name} - R${meal.price}</p>
+            <p>${meal.desc}</p>
+          </div>
+          <button class="remove-btn" onclick="removeMeal(${index})">🗑</button>
+        `;
+        list.appendChild(mealDiv);
+      });
+    }
+
+    function viewMenu() {
+      window.location.href = "menu.html";
+    }
+
+    renderMeals();
+  </script>
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart</title>
+<style>
+  body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background-image: url("./assets/YOURCART.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    transition: opacity 0.3s ease; /* Added for smooth fade effect */
+  }
+
+  .overlay {
+    width: 100%;
+    background-color: rgba(0,0,0,0.45);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    margin: 16px 0;
+    text-align: center;
+  }
+
+  .filter-heading {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    text-align: center;
+  }
+
+  .category-info {
+    color: #fff;
+    font-size: 14px;
+    margin: 0 4px;
+  }
+  .category-info-selected { font-weight:700; color:#ffd700; }
+
+  .filter-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  .filter-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    width: 80px;
+    border-radius: 25px;
+    background-color: rgba(255,255,255,0.3);
+    margin: 4px;
+    cursor: pointer;
+  }
+
+  .filter-btn-selected {
+    background-color: #fff;
+    box-shadow: 0 0 4px rgba(0,0,0,0.3);
+  }
+
+  .filter-text {
+    color: #fff;
+    font-weight: 600;
+    margin-right: 6px;
+  }
+  .filter-text-selected { color: #000; }
+
+  .badge {
+    background-color: red;
+    border-radius: 10px;
+    padding: 2px 6px;
+    min-width: 20px;
+    text-align: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  .cart-list {
+    width: 90%;
+    max-width: 400px;
+    max-height: 250px;
+    overflow-y: auto;
+    margin-bottom: 12px;
+  }
+
+  .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255,255,255,0.85);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+  }
+
+  .item-text { font-size: 16px; color: #000; font-weight: 700; }
+  .item-desc { font-size: 14px; color: #333; font-style: italic; margin-top:2px; }
+  .remove-text { color: red; font-weight: 700; cursor:pointer; }
+
+  .empty-text { color: #ddd; text-align: center; margin: 20px 0; font-size: 16px; }
+
+  .total {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 10px 0;
+    color: #fff;
+    text-align: center;
+  }
+
+  .checkout-btn, .back-btn {
+    width: 90%;
+    max-width: 400px;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .checkout-btn { background-color: #000; color: #fff; }
+  .back-btn { background-color: #555; color: #fff; }
+
+  .qty-container { display: flex; align-items: center; }
+  .qty-btn {
+    width: 30px; height: 30px;
+    background-color: #000;
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    margin: 0 4px;
+  }
+  .qty-counter { font-weight: 700; font-size: 16px; margin: 0 4px; color:#000; }
+</style>
+</head>
+<body>
+<div class="overlay">
+
+  <h1>Your Cart</h1>
+
+  <div class="filter-heading">Filter by Category</div>
+  <div id="category-info" style="text-align:center; margin-bottom:8px;"></div>
+
+  <div class="filter-buttons" id="filter-buttons"></div>
+
+  <div class="cart-list" id="cart-list"></div>
+
+  <div class="total" id="total"></div>
+
+  <button class="checkout-btn" onclick="goCheckout()">Proceed to Checkout</button>
+  <button class="back-btn" onclick="goBack()">⬅ Back</button>
+
+</div>
+
+<script>
+const categories = ['All','Starters','Mains','Desserts'];
+let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+let selectedCategory = 'All';
+
+// Calculate count and average per category
+function getCategoryInfo(cat) {
+  const items = cat==='All'? cartItems:cartItems.filter(i=>i.category.toLowerCase()===cat.toLowerCase());
+  const count = items.reduce((a,i)=>a+(i.quantity||1),0);
+  const avg = count===0?0: (items.reduce((a,i)=>a+((i.price)*(i.quantity||1)),0)/count).toFixed(2);
+  return {count, avg};
+}
+
+// Render category filter bar
+function renderFilters() {
+  const infoDiv = document.getElementById('category-info');
+  infoDiv.innerHTML = categories.map((cat,i)=>{
+    const info = getCategoryInfo(cat);
+    return `<span style="${cat===selectedCategory?'font-weight:700;color:#ffd700':''}">
+      ${cat}: ${info.count} items, Avg: R${info.avg}${i<3?' | ':''}
+    </span>`;
+  }).join('');
+
+  const btnDiv = document.getElementById('filter-buttons');
+  btnDiv.innerHTML = categories.map(cat=>{
+    const info = getCategoryInfo(cat);
+    const selected = cat===selectedCategory;
+    return `<div class="filter-btn ${selected?'filter-btn-selected':''}" onclick="selectCategory('${cat}')">
+      <span class="filter-text ${selected?'filter-text-selected':''}">${cat}</span>
+      <span class="badge">${info.count}</span>
+    </div>`;
+  }).join('');
+}
+
+// Render all items
+function renderCart() {
+  const list = document.getElementById('cart-list');
+  const filtered = selectedCategory==='All'
+    ? cartItems
+    : cartItems.filter(i=>i.category.toLowerCase()===selectedCategory.toLowerCase());
+
+  if(filtered.length===0){
+    list.innerHTML='<div class="empty-text">No items in this category.</div>';
+  } else {
+    list.innerHTML = filtered.map((item,index)=>{
+      return `<div class="cart-item">
+        <div style="flex:1">
+          <div class="item-text">${item.name} - R${item.price}</div>
+          ${item.desc?`<div class="item-desc">${item.desc}</div>`:''}
+        </div>
+        <div class="qty-container">
+          <button class="qty-btn" onclick="decreaseQty(${index})">-</button>
+          <div class="qty-counter">${item.quantity||1}</div>
+          <button class="qty-btn" onclick="increaseQty(${index})">+</button>
+        </div>
+        <div>
+          <span class="remove-text" onclick="removeItem(${index})">Remove</span>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  const total = filtered.reduce((a,i)=>a+((i.price)*(i.quantity||1)),0).toFixed(2);
+  document.getElementById('total').textContent = 'Total: R' + total;
+}
+
+// Filter selection
+function selectCategory(cat){
+  selectedCategory = cat;
+  renderFilters();
+  renderCart();
+}
+
+// Remove item
+function removeItem(idx){
+  cartItems.splice(idx,1);
+  saveCart();
+  renderFilters();
+  renderCart();
+}
+
+// Increase quantity
+function increaseQty(idx){
+  if(!cartItems[idx].quantity) cartItems[idx].quantity=1;
+  cartItems[idx].quantity+=1;
+  saveCart();
+  renderCart();
+  renderFilters();
+}
+
+// Decrease quantity
+function decreaseQty(idx){
+  if(!cartItems[idx].quantity) cartItems[idx].quantity=1;
+  if(cartItems[idx].quantity>1) cartItems[idx].quantity-=1;
+  else cartItems.splice(idx,1);
+  saveCart();
+  renderCart();
+  renderFilters();
+}
+
+// Save to localStorage
+function saveCart(){
+  localStorage.setItem('cartItems', JSON.stringify(cartItems));
+}
+
+// ✅ Updated function (no alert, smooth transition)
+function goCheckout(){
+  document.body.style.opacity = '0';
+  setTimeout(() => {
+    window.location.href = 'checkout.html';
+  }, 300);
+}
+
+function goBack(){
+  window.location.href='menu.html';
+}
+
+// Initial render
+renderFilters();
+renderCart();
+</script>
+</body>
+</html>

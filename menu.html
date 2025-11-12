@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Christoffel Menu</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Times New Roman', serif; }
+
+    body {
+      background-color: #f5f5f5;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    .header {
+      background-color: #fff;
+      text-align: center;
+      padding: 40px 0 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .header h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    /* Cart Button */
+    .cart-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: rgba(0,0,0,0.5);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    /* Back Button */
+    .back-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background-color: gray;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      z-index: 100;
+    }
+
+    /* Category Buttons */
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 16px 0;
+      flex-wrap: wrap;
+    }
+
+    .cat-btn {
+      border: none;
+      border-radius: 20px;
+      padding: 8px 14px;
+      font-weight: 600;
+      cursor: pointer;
+      background-color: #ccc;
+      color: #333;
+      transition: all 0.3s;
+    }
+
+    .cat-btn.active {
+      background-color: #556b2f;
+      color: #fff;
+    }
+
+    /* Menu Grid */
+    .menu-grid {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .column {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .column-title {
+      text-align: center;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .avg-price {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: #444;
+      margin-bottom: 12px;
+    }
+
+    .meal-card {
+      border-radius: 12px;
+      padding: 10px;
+      margin-bottom: 14px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Pastel backgrounds */
+    .starter-card { background-color: #ffe0e6; }  /* Light pink */
+    .main-card { background-color: #d9ebff; }     /* Light blue */
+    .dessert-card { background-color: #fff7cc; }  /* Light yellow */
+
+    .meal-img {
+      width: 150px;
+      height: 120px;
+      border-radius: 8px;
+      object-fit: cover;
+      margin-bottom: 6px;
+    }
+
+    .meal-name {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 4px 0;
+    }
+
+    .meal-desc {
+      color: #555;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .meal-price {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    .add-btn {
+      background-color: #556b2f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .add-btn:hover {
+      background-color: #6b8e23;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="back-btn" onclick="goBack()">⬅ Back</button>
+
+  <div class="header">
+    <button class="cart-btn" onclick="openCart()">🛒 (<span id="cartCount">0</span>)</button>
+    <h1>Christoffel Shop</h1>
+    <h2>THE CHRISTOFFEL MENU</h2>
+  </div>
+
+  <!-- Category Buttons -->
+  <div class="categories">
+    <button class="cat-btn active" onclick="filterCategory('All')">All</button>
+    <button class="cat-btn" onclick="filterCategory('Starters')">Starters</button>
+    <button class="cat-btn" onclick="filterCategory('Mains')">Mains</button>
+    <button class="cat-btn" onclick="filterCategory('Desserts')">Desserts</button>
+  </div>
+
+  <!-- Menu Display -->
+  <div class="menu-grid" id="menuGrid"></div>
+
+  <script>
+    // Load saved meals and cart from localStorage
+    let proposedMenu = JSON.parse(localStorage.getItem('proposedMenu')) || { Starters: [], Mains: [], Desserts: [] };
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    let selectedCategory = 'All';
+
+    const images = {
+      Starters: ['assets/starter1.png', 'assets/starter2.png'],
+      Mains: ['assets/main1.png', 'assets/main2.png'],
+      Desserts: ['assets/dessert1.png', 'assets/dessert2.png']
+    };
+
+    function renderMenu() {
+      const menuGrid = document.getElementById('menuGrid');
+      menuGrid.innerHTML = '';
+
+      const categories = ['Starters', 'Mains', 'Desserts'];
+      categories.forEach((cat) => {
+        if (selectedCategory !== 'All' && selectedCategory !== cat) return;
+
+        const column = document.createElement('div');
+        column.className = 'column';
+
+        const meals = proposedMenu[cat];
+        if (meals.length === 0) return;
+
+        const prices = meals.map(m => Number(m.price));
+        const avgPrice = (Math.max(...prices) - Math.min(...prices)).toFixed(2);
+
+        column.innerHTML = `
+          <div class="column-title">${cat}</div>
+          <div class="avg-price">Average Meal Cost: R${avgPrice}</div>
+        `;
+
+        meals.forEach((meal, i) => {
+          const colorClass = cat === 'Starters' ? 'starter-card' : cat === 'Mains' ? 'main-card' : 'dessert-card';
+          const card = document.createElement('div');
+          card.className = `meal-card ${colorClass}`;
+          card.innerHTML = `
+            <img src="${images[cat][i] || images[cat][0]}" alt="${meal.name}" class="meal-img">
+            <div class="meal-name">${meal.name}</div>
+            <div class="meal-desc">${meal.desc}</div>
+            <div class="meal-price">R${meal.price}</div>
+            <button class="add-btn" onclick="addToCart('${cat}', ${i})">Add</button>
+          `;
+          column.appendChild(card);
+        });
+
+        menuGrid.appendChild(column);
+      });
+    }
+
+    function addToCart(category, index) {
+      const meal = proposedMenu[category][index];
+      if (meal) {
+        cartItems.push({ ...meal, category });
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        document.getElementById('cartCount').textContent = cartItems.length;
+      }
+    }
+
+    function filterCategory(cat) {
+      selectedCategory = cat;
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent === cat);
+      });
+      renderMenu();
+    }
+
+    function goBack() {
+      window.location.href = 'menuadditem.html';
+    }
+
+    function openCart() {
+      window.location.href = 'cart.html';
+    }
+
+    document.getElementById('cartCount').textContent = cartItems.length;
+    renderMenu();
+  </script>
+
+</body>
+</html>
