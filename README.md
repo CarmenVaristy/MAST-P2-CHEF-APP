@@ -1,97 +1,127 @@
-Christoffel Shop Menu App
-
-Project Overview:
-
-This is a React Native mobile application that allows guests to browse and filter menu items, add items to a cart, and complete checkout with optional promo codes and payment selection.
-________________________________________
-Features
-
-•	Home Page: Welcome screen with navigation to the menu filter page.
-
-•	Menu Page: Displays menu items organized into Starters, Mains, and Desserts columns.
-
-•	Filter Functionality: Guests can filter menu items by course (All, Starters, Mains, Desserts) using a filter button.
-
-•	Cart System: Guests can add items to the cart, view total, and remove items.
-
-•	Checkout Page: Guests can input personal details, select a payment method, apply a promo code, and see calculated subtotal, discount, tax, and total.
-
-•	Admin/Filter Page: Allows adding new menu items dynamically and updates the menu page.
-
-•	Back and Navigation Buttons: Easy navigation across pages.
-________________________________________
-Screens
-
-1.	Home Page: Welcome and navigation button.
-   
-2.	Menu Page: Filter button plus menu columns with add-to-cart functionality.
-   
-3.	Cart Page: Displays selected items, total, and checkout button.
-   
-4.	Checkout Page: Form for user information, payment method, promo code, and total calculation.
-   
-5.	Filter/Add Menu Page: Allows admin or user to add new menu items for each category.
-    
-________________________________________
-Technologies
-
-•	React Native
-
-•	Expo (optional, for easy testing and deployment)
-
-•	JavaScript / TypeScript Concepts Used:
-
-o	For loops
-
-o	While loops
-
-o	For-in loops
-
-o	Functions and code organization
-
-o	Global variables
-
-________________________________________
-Installation
-
-1.	Clone the repository.
-
-2.	Navigate to the project folder.
+project:
+  name: React Native Menu Cart App
+  
+  description: >
+    A React Native mobile application designed for food ordering. Users can
+    browse a menu, filter items by category, add items to a cart, and
+    proceed to checkout. The app showcases dynamic category counts, responsive
+    UI, and smooth navigation between screens.
 	
-3.	Install dependencies using npm install.
-	
-4.	Start the app using npx expo start.
-________________________________________
-Usage
+  author: Carmen Jecole
+  date_created: 2025-11-13
+  
+  version: 1.0.0
+  tech_stack:
+    - React Native
+    - Expo
+    - React Navigation
+    - JavaScript / TypeScript
+    - State management via useState & useEffect
+    - Optional: Vector Icons (Ionicons)
 
-1.	Open the app in an emulator or on a mobile device using Expo Go.
-2.	Navigate to the Menu Filter Page from Home.
-3.	Use the Filter Button to view only Starters, Mains, Desserts, or All.
-4.	Add items to the Cart, view total, and proceed to Checkout.
-5.	Input user details, select payment method, and confirm the order.
-________________________________________
-Project Structure
+project_overview: >
+  This project simulates a food ordering system with an intuitive mobile interface.
+  Users can browse menu items, filter by categories (Starters, Mains, Desserts),
+  view live item counts per category, add items to a cart, and complete a checkout
+  process. Each screen has been designed for clarity, usability, and responsiveness.
 
-•	assets/ → Images for meals and pages
+screens:
+  - name: HomeScreen
+    description: >
+      The first screen users see upon opening the app. It provides:
+        - Welcome message and brief instructions.
+        - Navigation buttons to the Menu screen.
+        - Clean and simple UI to set the tone for the app.
+      Purpose: To guide users smoothly into the menu browsing process.
 
-•	App.js → Main app file with all page components
+  - name: MenuScreen
+    description: >
+      Displays all available menu items. Key features:
+        - Categorized items (Starters, Mains, Desserts).
+        - Add to Cart buttons for each item.
+        - Dynamic display of selected item counts per category.
+        - Navigation to Filter Menu and Cart screens.
+      Purpose: Allow users to browse the menu and add items to the cart.
 
-•	package.json → Project dependencies
-________________________________________
-Future Enhancements
+  - name: FilterMenuScreen
+    description: >
+      Provides filtering options for menu items. Key features:
+        - Users can filter items by category: Starters, Mains, Desserts, or All.
+        - Real-time update of menu display based on selected filter.
+        - Maintains cart selections while filtering.
+      Purpose: Enable users to easily find specific types of menu items.
 
-•	Persist cart and menu data using AsyncStorage or a backend database.
+  - name: CartScreen
+    description: >
+      Displays all items currently added to the cart. Key features:
+        - Item list with quantity and category labels.
+        - Category filters to show only Starters, Mains, Desserts, or All.
+        - Dynamic live counts for each category.
+        - Reset cart button with confirmation alert.
+      Purpose: Allow users to review, filter, and manage their selected items before checkout.
 
-•	Add user authentication for order history.
+  - name: CheckoutScreen
+    description: >
+      Final step of the ordering process. Key features:
+        - Displays summary of cart items with total quantities.
+        - Provides a checkout confirmation button.
+        - Optionally, a placeholder for future payment integration.
+      Purpose: Complete the ordering flow and confirm user selections.
 
-•	Implement image uploads for new menu items.
+features:
+  - Browse menu items and add to cart.
+  - Filter menu by category in real-time.
+  - Dynamic live counts of selected items per category.
+  - Filter cart items by category.
+  - Reset cart functionality with confirmation.
+  - Checkout screen summarizing order.
+  - Responsive design for mobile screens.
 
-•	Improve styling for responsive design across multiple devices.
+project_structure:
+  - App.tsx: Entry point with navigation setup.
+  - screens/
+      - HomeScreen.tsx
+      - MenuScreen.tsx
+      - FilterMenuScreen.tsx
+      - CartScreen.tsx
+      - CheckoutScreen.tsx
+  - components/
+      - MenuItem.tsx: Displays individual menu items.
+      - CartItem.tsx: Displays individual cart items.
+  - styles/: Shared styling files.
+  - assets/: Images, icons, and other media.
 
-________________________________________
-License
+installation:
+  steps:
+    - "Clone the repository: git clone <repo_url>"
+    - "Navigate into project folder: cd react-native-menu-cart-app"
+    - "Install dependencies: npm install or yarn install"
+    - "Start Expo: npm start or expo start"
+    - "Open on device using Expo Go app or an emulator"
 
-This project is for educational purposes and personal use.
+usage:
+  - "Open the app to see the Home screen."
+  - "Navigate to the Menu screen to browse items."
+  - "Use Filter Menu to view specific categories."
+  - "Add items to cart; observe live category counts."
+  - "Go to Cart screen to review selections."
+  - "Reset cart if needed, or proceed to Checkout screen."
+  - "Confirm order on Checkout screen."
+
+future_enhancements:
+  - Persist cart using AsyncStorage or Redux.
+  - Integrate backend API for real menu items and payment.
+  - Add user authentication for multiple accounts.
+  - Enhance UI with animations and improved design.
+  - Implement full checkout with payment gateway.
+
+credits:
+  - React Native Documentation: https://reactnative.dev/docs/getting-started
+  - Expo Documentation: https://docs.expo.dev/
+  - React Navigation: https://reactnavigation.org/
+
+license: MIT
+
 ________________________________________
 Screen shots :
 
